@@ -6,23 +6,28 @@ export const prerender = false;
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-async function sendEmailWithSMTP(empresa: string, nombre: string, email: string, telefono: string) {
+async function sendEmailWithSMTP(
+  empresa: string,
+  nombre: string,
+  email: string,
+  telefono: string
+) {
   const transporter = nodemailer.createTransport({
-    host: "servidor-inexistente.com",
+    host: "cruzber.loading.es",
     port: 465,
     secure: true,
     auth: {
       user: "alertas@tandemsoftware.info",
-      pass: "tsESn1CQ9##",
+      pass: process.env.SMTP_PASSWORD,
     },
     tls: {
-      rejectUnauthorized: false
-    }
+      rejectUnauthorized: false,
+    },
   });
 
   await transporter.sendMail({
     from: '"TandemSoftware" <alertas@tandemsoftware.info>',
-    to: "sergio@tandemsoftware.es",
+    to: process.env.EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     text: `
       Empresa: ${empresa}
@@ -40,11 +45,16 @@ async function sendEmailWithSMTP(empresa: string, nombre: string, email: string,
   });
 }
 
-async function sendEmailWithResend(empresa: string, nombre: string, email: string, telefono: string) {
+async function sendEmailWithResend(
+  empresa: string,
+  nombre: string,
+  email: string,
+  telefono: string
+) {
   await resend.emails.send({
-    from: 'VeriFactu <onboarding@resend.dev>',
-    to: 'sergio@tandemsoftware.es',
-    subject: 'Nueva inscripción desde la web',
+    from: "TandemSoftware <alertas@tandemsoftware.info>",
+    to: process.env.EMAIL_TO || "info@tandemsoftware.es",
+    subject: "Nueva inscripción desde la web",
     html: `
       <h3>Nueva inscripción recibida</h3>
       <p><strong>Empresa:</strong> ${empresa}</p>
