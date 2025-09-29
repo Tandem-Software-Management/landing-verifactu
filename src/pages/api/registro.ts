@@ -14,8 +14,9 @@ export const POST: APIRoute = async ({ request }) => {
 
     const transporter = nodemailer.createTransport({
       host: "cruzber.loading.es",
-      port: 25,
+      port: 587,
       secure: false,
+      requireTLS: true,
       auth: {
         user: "alertas@tandemsoftware.info",
         pass: "tsESn1CQ9##",
