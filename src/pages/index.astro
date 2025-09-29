@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import TandemBanner from '../assets/TandemBanner.svg';
+import TandemBannerDark from '../assets/TandemBannerDark.svg';
+import Integrator from '../assets/integratorWhite.png';
 ---
 
 <Layout title="Evento VeriFactu - Integración Sage">
@@ -146,7 +148,7 @@ import TandemBanner from '../assets/TandemBanner.svg';
 							</button>
 
 							<p class="form-disclaimer">
-								Al inscribirte, aceptas recibir información sobre VeriFactu y nuestros servicios.
+								Una vez hayas completado el formulario, contactaremos contigo en las próximas 24-48 horas para confirmar tu inscripción y enviarte el enlace al evento. <br>
 							</p>
 						</form>
 					</div>
@@ -228,7 +230,7 @@ import TandemBanner from '../assets/TandemBanner.svg';
 							<div class="stat-label">Empresas integradas</div>
 						</div>
 						<div class="stat-item-main">
-							<div class="stat-number">15+</div>
+							<div class="stat-number">14+</div>
 							<div class="stat-label">Años de experiencia</div>
 						</div>
 						<div class="stat-item-main">
@@ -246,19 +248,19 @@ import TandemBanner from '../assets/TandemBanner.svg';
 				<div class="footer-content">
 					<div class="footer-brand">
 						<div class="logo">
-							<img src={TandemBanner.src} alt="Tandem" width="140" height="35" />
+							<img src={TandemBannerDark.src} alt="Tandem" width="140" height="35" />
 						</div>
-						<p>Especialistas en integración Sage desde 2009</p>
+						<p>Especialistas en integración con Sage desde 2011</p>
 					</div>
 
 					<div class="footer-links">
-						<a href="mailto:info@techsage.es">info@techsage.es</a>
-						<a href="tel:+34900000000">+34 900 000 000</a>
+						<a href="mailto:info@tandemsoftware.es">info@tandemsoftware.es</a>
+						<a href="tel:+34957248361">+34 957 248 361</a>
 					</div>
 				</div>
 
 				<div class="footer-bottom">
-					<p>&copy; 2024 Tandem. Todos los derechos reservados.</p>
+					<p>&copy; 2025 Tandem Software. Todos los derechos reservados.</p>
 				</div>
 			</div>
 		</footer>
@@ -345,15 +347,16 @@ import TandemBanner from '../assets/TandemBanner.svg';
 		font-weight: 700;
 		font-size: 1.25rem;
 		color: var(--gray-900);
+		overflow: hidden;
 	}
 
 	.logo img {
 		height: 50px;
-		width: 180px;
+		width: 200px;
 		object-fit: cover;
 		object-position: center;
-		transform: scale(2.2);
-		transform-origin: center;
+		transform: scale(2.0);
+		transform-origin: 50% center;
 		overflow: hidden;
 	}
 
@@ -377,7 +380,7 @@ import TandemBanner from '../assets/TandemBanner.svg';
 	/* Hero Section */
 	.hero {
 		position: relative;
-		padding: 6rem 0 8rem;
+		padding: 4rem 0 8rem;
 		overflow: hidden;
 		background: linear-gradient(135deg, var(--primary-900) 0%, var(--primary-700) 50%, var(--primary-600) 100%);
 	}
@@ -890,7 +893,7 @@ import TandemBanner from '../assets/TandemBanner.svg';
 
 	/* Footer */
 	.footer {
-		background: var(--gray-950);
+		background: #161c21;
 		color: white;
 		padding: 3rem 0 2rem;
 	}
@@ -900,6 +903,16 @@ import TandemBanner from '../assets/TandemBanner.svg';
 		justify-content: space-between;
 		align-items: start;
 		margin-bottom: 2rem;
+	}
+
+	.footer .logo img {
+		height: 60px;
+		width: 140px;
+		object-fit: cover;
+		object-position: center;
+		transform: scale(3.2);
+		transform-origin: 35% center;
+		overflow: hidden;
 	}
 
 	.footer-brand p {
