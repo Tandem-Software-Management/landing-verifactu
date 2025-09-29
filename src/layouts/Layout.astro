@@ -10,11 +10,104 @@ const { title } = Astro.props;
 <html lang="es">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<link rel="icon" type="image/png" href="/favicon.png">
 		<meta name="theme-color" content="#1e40af" />
 		<meta name="generator" content={Astro.generator} />
+
+		<!-- SEO Meta Tags -->
 		<title>{title}</title>
+		<meta name="description" content="Evento exclusivo sobre VeriFactu y la Ley Antifraude. Prepárate para la obligatoriedad del software certificado con Sage. Inscripción gratuita - 10 Octubre 2025." />
+		<meta name="keywords" content="VeriFactu, Ley Antifraude, Sage, software certificado, facturación electrónica, evento online, Tandem Software, cumplimiento fiscal" />
+		<meta name="author" content="Tandem Software" />
+		<meta name="robots" content="index, follow" />
+		<link rel="canonical" href="https://verifactu.tandemsoftware.es/" />
+
+		<!-- Open Graph / Facebook -->
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content="https://verifactu.tandemsoftware.es/" />
+		<meta property="og:title" content="VeriFactu - Evento Exclusivo | Tandem Software" />
+		<meta property="og:description" content="Prepárate para VeriFactu y la Ley Antifraude. Evento online gratuito el 10 de Octubre 2025 sobre software certificado con Sage." />
+		<meta property="og:image" content="https://verifactu.tandemsoftware.es/og-image.png" />
+		<meta property="og:image:width" content="1200" />
+		<meta property="og:image:height" content="630" />
+		<meta property="og:locale" content="es_ES" />
+		<meta property="og:site_name" content="Tandem Software" />
+
+		<!-- Twitter -->
+		<meta property="twitter:card" content="summary_large_image" />
+		<meta property="twitter:url" content="https://verifactu.tandemsoftware.es/" />
+		<meta property="twitter:title" content="VeriFactu - Evento Exclusivo | Tandem Software" />
+		<meta property="twitter:description" content="Prepárate para VeriFactu y la Ley Antifraude. Evento online gratuito el 10 de Octubre 2025 sobre software certificado con Sage." />
+		<meta property="twitter:image" content="https://verifactu.tandemsoftware.es/og-image.png" />
+
+		<!-- Additional SEO -->
+		<meta name="format-detection" content="telephone=no" />
+		<meta name="geo.region" content="ES" />
+		<meta name="geo.placename" content="España" />
+		<meta name="language" content="Spanish" />
+
+		<!-- Structured Data - Event Schema -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Event",
+			"name": "VeriFactu - Prepárate para la nueva normativa",
+			"description": "Evento exclusivo sobre VeriFactu y la Ley Antifraude. Aprende todo sobre la obligatoriedad del software certificado y cómo preparar tu empresa para los nuevos cambios normativos.",
+			"startDate": "2025-10-10T11:00:00+02:00",
+			"endDate": "2025-10-10T12:00:00+02:00",
+			"eventStatus": "https://schema.org/EventScheduled",
+			"eventAttendanceMode": "https://schema.org/OnlineEventAttendanceMode",
+			"location": {
+				"@type": "VirtualLocation",
+				"url": "https://verifactu.tandemsoftware.es/",
+				"name": "Evento Online VeriFactu"
+			},
+			"organizer": {
+				"@type": "Organization",
+				"name": "Tandem Software",
+				"url": "https://www.tandemsoftware.es/",
+				"email": "info@tandemsoftware.es",
+				"telephone": "+34957248361"
+			},
+			"offers": {
+				"@type": "Offer",
+				"price": "0",
+				"priceCurrency": "EUR",
+				"availability": "https://schema.org/InStock",
+				"validFrom": "2025-09-01T00:00:00+02:00"
+			},
+			"keywords": ["VeriFactu", "Ley Antifraude", "Sage", "software certificado", "facturación electrónica"],
+			"audience": {
+				"@type": "BusinessAudience",
+				"audienceType": "Empresas y autónomos"
+			},
+			"inLanguage": "es",
+			"isAccessibleForFree": true
+		}
+		</script>
+
+		<!-- Structured Data - Organization Schema -->
+		<script type="application/ld+json">
+		{
+			"@context": "https://schema.org",
+			"@type": "Organization",
+			"name": "Tandem Software",
+			"url": "https://www.tandemsoftware.es/",
+			"logo": "https://verifactu.tandemsoftware.es/tandem-logo.png",
+			"email": "info@tandemsoftware.es",
+			"telephone": "+34957248361",
+			"foundingDate": "2011",
+			"description": "Especialistas en integración con Sage desde 2011",
+			"address": {
+				"@type": "PostalAddress",
+				"addressCountry": "ES"
+			},
+			"sameAs": [
+				"https://www.tandemsoftware.es/"
+			]
+		}
+		</script>
 	</head>
 	<body>
 		<slot />

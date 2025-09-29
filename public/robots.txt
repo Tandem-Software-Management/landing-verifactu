@@ -1,0 +1,22 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://verifactu.tandemsoftware.es/sitemap.xml
+
+# Disallow crawling of API endpoints
+Disallow: /api/
+
+# Allow all pages for SEO
+Allow: /
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Allow: /*.jpeg
+Allow: /*.gif
+Allow: /*.svg
+Allow: /*.webp
+
+# Crawl-delay (optional, for being respectful)
+Crawl-delay: 1
