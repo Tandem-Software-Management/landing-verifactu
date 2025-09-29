@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm build",
+  "outputDirectory": ".vercel/output",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "functions": {
+    ".vercel/output/functions/_render.func/index.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
