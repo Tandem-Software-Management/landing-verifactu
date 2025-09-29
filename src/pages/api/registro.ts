@@ -52,7 +52,7 @@ async function sendEmailWithResend(
   telefono: string
 ) {
   await resend.emails.send({
-    from: "TandemSoftware <alertas@tandemsoftware.info>",
+    from: "TandemSoftware <onboarding@resend.dev>",
     to: process.env.EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     html: `
