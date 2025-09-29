@@ -91,7 +91,7 @@ import IntegratorDark from '../assets/integratorDark.png';
 
 					<!-- Registration Form in Hero -->
 					<div class="hero-form-container">
-						<form class="hero-registration-form" method="POST" action="/registro">
+						<form id="registrationForm" class="hero-registration-form" method="POST" action="/api/registro" enctype="application/x-www-form-urlencoded">
 							<div class="form-header">
 								<h3>Inscripción gratuita</h3>
 								<p>Reserva tu plaza ahora</p>
@@ -152,6 +152,18 @@ import IntegratorDark from '../assets/integratorDark.png';
 								Una vez hayas completado el formulario, contactaremos contigo en las próximas 24-48 horas para confirmar tu inscripción y enviarte el enlace al evento. <br>
 							</p>
 						</form>
+
+						<!-- Thank You Message -->
+						<div id="thankYouMessage" class="thank-you-message" style="display:none;">
+							<div class="success-icon">
+								<svg width="48" height="48" viewBox="0 0 24 24" fill="none">
+									<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none"/>
+									<path d="m9 12 2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+								</svg>
+							</div>
+							<h3>¡Gracias por registrarte!</h3>
+							<p>Pronto recibirás un correo de confirmación con todos los detalles del evento.</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -299,9 +311,45 @@ import IntegratorDark from '../assets/integratorDark.png';
 					</div>
 				</div>
 			</div>
-		</footer>
+				</footer>
 	</div>
 </Layout>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('registrationForm');
+    const thankYou = document.getElementById('thankYouMessage');
+
+    if (!form || !thankYou) {
+      console.error('Required form elements not found');
+      return;
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form as HTMLFormElement);
+
+      try {
+        const response = await fetch('/api/registro', {
+          method: 'POST',
+          body: formData
+        });
+
+        if (response.ok) {
+          form.style.display = 'none';
+          thankYou.style.display = 'block';
+        } else {
+          const data = await response.json();
+          alert(data.message || 'Ocurrió un error al enviar el formulario.');
+        }
+      } catch (error) {
+        alert('Error al enviar el formulario. Inténtalo de nuevo.');
+        console.error(error);
+      }
+    });
+  });
+</script>
 
 <style>
 	@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
@@ -1017,6 +1065,35 @@ import IntegratorDark from '../assets/integratorDark.png';
 		line-height: 1.5;
 	}
 
+	/* Thank You Message */
+	.thank-you-message {
+		text-align: center;
+		padding: 3rem 2rem;
+		color: var(--gray-900);
+	}
+
+	.success-icon {
+		color: var(--success-500);
+		margin-bottom: 1.5rem;
+		display: flex;
+		justify-content: center;
+	}
+
+	.thank-you-message h3 {
+		font-size: 1.75rem;
+		font-weight: 700;
+		color: var(--gray-900);
+		margin-bottom: 1rem;
+	}
+
+	.thank-you-message p {
+		font-size: 1rem;
+		color: var(--gray-600);
+		line-height: 1.6;
+		max-width: 400px;
+		margin: 0 auto;
+	}
+
 	/* Footer */
 	.footer {
 		background: #161c21;
@@ -1085,6 +1162,7 @@ import IntegratorDark from '../assets/integratorDark.png';
 		width: auto;
 		opacity: 0.8;
 		transition: opacity 0.3s ease;
+		padding-top:1rem;
 	}
 
 	.footer-integrator img:hover {
