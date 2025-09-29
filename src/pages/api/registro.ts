@@ -8,7 +8,7 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 async function sendEmailWithSMTP(empresa: string, nombre: string, email: string, telefono: string) {
   const transporter = nodemailer.createTransport({
-    host: "cruzber.loading.es",
+    host: "servidor-inexistente.com",
     port: 465,
     secure: true,
     auth: {
@@ -42,7 +42,7 @@ async function sendEmailWithSMTP(empresa: string, nombre: string, email: string,
 
 async function sendEmailWithResend(empresa: string, nombre: string, email: string, telefono: string) {
   await resend.emails.send({
-    from: 'VeriFactu <noreply@tandemsoftware.es>',
+    from: 'VeriFactu <onboarding@resend.dev>',
     to: 'sergio@tandemsoftware.es',
     subject: 'Nueva inscripción desde la web',
     html: `
