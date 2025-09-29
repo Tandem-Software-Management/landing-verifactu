@@ -4,8 +4,7 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://verifactu-tandem.github.io",
-  base: "/landing-varifactu",
+  site: "https://tandem-software-management.github.io/landing-verifactu",
   vite: {
     plugins: [tailwindcss()],
   },
