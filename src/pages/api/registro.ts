@@ -14,13 +14,15 @@ export const POST: APIRoute = async ({ request }) => {
 
     const transporter = nodemailer.createTransport({
       host: "cruzber.loading.es",
-      port: 587,
-      secure: false,
-      requireTLS: true,
+      port: 465,
+      secure: true,
       auth: {
         user: "alertas@tandemsoftware.info",
         pass: "tsESn1CQ9##",
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     await transporter.sendMail({
