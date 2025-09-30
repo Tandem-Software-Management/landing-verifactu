@@ -441,7 +441,9 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<!-- Tarjeta principal grande - arriba izquierda -->
 							<div class="bento-item bento-large bento-order-1">
 								<div class="bento-content">
-									<div class="bento-icon">❓</div>
+									<div class="bento-icon-img">
+										<img src="/question.svg" alt="Información" />
+									</div>
 									<h3 class="bento-title">
 										¿Qué es VeriFactu?
 									</h3>
@@ -463,7 +465,9 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<!-- Tarjeta de cambios Sage -->
 							<div class="bento-item bento-medium bento-order-2">
 								<div class="bento-content">
-									<div class="bento-icon">🔧</div>
+									<div class="bento-icon-img">
+										<img src="/bolt-svgrepo-com.svg" alt="Configuración" />
+									</div>
 									<h3 class="bento-title">¿Qué cambios tengo que hacer en Sage200?</h3>
 									<p class="bento-description">
 										Configuraciones específicas y actualizaciones necesarias
@@ -474,7 +478,9 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<!-- Tarjeta de opciones -->
 							<div class="bento-item bento-small bento-order-4">
 								<div class="bento-content">
-									<div class="bento-icon">⚙️</div>
+									<div class="bento-icon-img">
+										<img src="/checklist.svg" alt="Opciones" />
+									</div>
 									<h3 class="bento-title">¿Qué opciones tengo?</h3>
 									<p class="bento-description">
 										Alternativas de implementación disponibles
@@ -485,7 +491,9 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<!-- Tarjeta de inicio -->
 							<div class="bento-item bento-small bento-order-6">
 								<div class="bento-content">
-									<div class="bento-icon">🚀</div>
+									<div class="bento-icon-img">
+										<img src="/rocket.svg" alt="Inicio" />
+									</div>
 									<h3 class="bento-title">¿Cuándo empiezo?</h3>
 									<p class="bento-description">
 										Plan de acción para transición exitosa
@@ -496,7 +504,9 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<!-- Tarjeta de sistema 2026 (alargada) -->
 							<div class="bento-item bento-highlight bento-order-3">
 								<div class="bento-content">
-									<div class="bento-icon">📅</div>
+									<div class="bento-icon-img">
+										<img src="/clock.svg" alt="Calendario 2026" />
+									</div>
 									<h3 class="bento-title">¿Cómo funcionará el sistema en 2026?</h3>
 									<p class="bento-description">
 										Nuevos flujos de trabajo y cambios operativos que afectarán tu día a día
@@ -507,7 +517,9 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<!-- Tarjeta de costes -->
 							<div class="bento-item bento-small bento-order-5">
 								<div class="bento-content">
-									<div class="bento-icon">💰</div>
+									<div class="bento-icon-img">
+										<img src="/hand-money-svgrepo-com.svg" alt="Costes" />
+									</div>
 									<h3 class="bento-title">¿Qué coste tendrá?</h3>
 									<p class="bento-description">
 										Desglose de costos de implementación
@@ -1294,6 +1306,33 @@ import IntegratorDark from "../assets/integratorDark.png";
 		font-size: 2.5rem;
 		margin-bottom: 1rem;
 		display: block;
+	}
+
+	.bento-icon-img {
+		width: 48px;
+		height: 48px;
+		margin-bottom: 1.5rem;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--primary-50);
+		border-radius: 12px;
+		padding: 12px;
+	}
+
+	.bento-icon-img img {
+		width: 24px;
+		height: 24px;
+		opacity: 0.8;
+	}
+
+	.bento-highlight .bento-icon-img {
+		background: rgba(255, 255, 255, 0.15);
+	}
+
+	.bento-highlight .bento-icon-img img {
+		filter: brightness(0) invert(1);
+		opacity: 0.9;
 	}
 
 	.bento-title {
