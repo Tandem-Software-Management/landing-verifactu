@@ -471,21 +471,35 @@ import IntegratorDark from "../assets/integratorDark.png";
 								</div>
 							</div>
 
-							<!-- Tarjeta de opciones - medio izquierda -->
+							<!-- Tarjeta de opciones -->
 							<div class="bento-item bento-small bento-order-4">
 								<div class="bento-content">
 									<div class="bento-icon">⚙️</div>
 									<h3 class="bento-title">¿Qué opciones tengo?</h3>
+									<p class="bento-description">
+										Alternativas de implementación disponibles
+									</p>
 								</div>
 							</div>
 
-							<!-- Tarjeta de sistema 2026 - medio derecha (alargada) -->
+							<!-- Tarjeta de inicio -->
+							<div class="bento-item bento-small bento-order-6">
+								<div class="bento-content">
+									<div class="bento-icon">🚀</div>
+									<h3 class="bento-title">¿Cuándo empiezo?</h3>
+									<p class="bento-description">
+										Plan de acción para transición exitosa
+									</p>
+								</div>
+							</div>
+
+							<!-- Tarjeta de sistema 2026 (alargada) -->
 							<div class="bento-item bento-highlight bento-order-3">
 								<div class="bento-content">
 									<div class="bento-icon">📅</div>
 									<h3 class="bento-title">¿Cómo funcionará el sistema en 2026?</h3>
 									<p class="bento-description">
-										Nuevos flujos de trabajo y cambios operativos
+										Nuevos flujos de trabajo y cambios operativos que afectarán tu día a día
 									</p>
 								</div>
 							</div>
@@ -495,19 +509,8 @@ import IntegratorDark from "../assets/integratorDark.png";
 								<div class="bento-content">
 									<div class="bento-icon">💰</div>
 									<h3 class="bento-title">¿Qué coste tendrá?</h3>
-								</div>
-							</div>
-
-							<!-- Tarjeta de inicio -->
-							<div class="bento-item bento-wide bento-order-6">
-								<div class="bento-content">
-									<div class="bento-icon">🚀</div>
-									<h3 class="bento-title">
-										¿Cuándo empiezo?
-									</h3>
 									<p class="bento-description">
-										Cronograma de implementación y plan
-										de acción para una transición exitosa
+										Desglose de costos de implementación
 									</p>
 								</div>
 							</div>
@@ -1189,7 +1192,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 	.bento-grid {
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
-		grid-template-rows: repeat(4, minmax(140px, auto));
+		grid-template-rows: repeat(3, minmax(160px, auto));
 		gap: 1.5rem;
 		max-width: 1200px;
 		margin: 0 auto;
@@ -1233,7 +1236,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 	}
 
 	.bento-medium {
-		grid-column: span 12;
+		grid-column: span 4;
 		grid-row: span 1;
 	}
 
@@ -1294,10 +1297,10 @@ import IntegratorDark from "../assets/integratorDark.png";
 	}
 
 	.bento-title {
-		font-size: 1.5rem;
+		font-size: 1.4rem;
 		font-weight: 700;
 		color: var(--gray-900);
-		margin-bottom: 0.75rem;
+		margin-bottom: 1rem;
 		line-height: 1.3;
 	}
 
