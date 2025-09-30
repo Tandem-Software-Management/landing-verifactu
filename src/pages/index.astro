@@ -438,71 +438,76 @@ import IntegratorDark from "../assets/integratorDark.png";
 							</h2>
 						</div>
 						<div class="bento-grid">
-							<!-- Tarjeta principal grande -->
-							<div class="bento-item bento-large">
+							<!-- Tarjeta principal grande - arriba izquierda -->
+							<div class="bento-item bento-large bento-order-1">
 								<div class="bento-content">
-									<div class="bento-icon">⚡</div>
+									<div class="bento-icon">❓</div>
 									<h3 class="bento-title">
-										Implementación Completa
+										¿Qué es VeriFactu?
 									</h3>
 									<p class="bento-description">
-										Guía paso a paso para implementar
-										software certificado en tu empresa,
-										desde la planificación hasta la puesta
-										en marcha.
+										Comprende en detalle la nueva normativa,
+										sus requisitos técnicos y su impacto
+										en tu empresa.
 									</p>
 								</div>
 							</div>
 
-							<!-- Tarjeta de cronograma -->
-							<div class="bento-item bento-medium">
-								<div class="bento-content">
-									<div class="bento-icon">📅</div>
-									<h3 class="bento-title">Cronograma</h3>
-									<p class="bento-description">
-										Fechas clave y hitos importantes
-									</p>
+							<!-- Tarjeta con imagen - arriba derecha -->
+							<div class="bento-item bento-image bento-order-7">
+								<div class="bento-image-container">
+									<img src="/joven.jpg" alt="Profesional trabajando con VeriFactu" />
 								</div>
 							</div>
 
-							<!-- Tarjeta de sanciones -->
-							<div class="bento-item bento-highlight">
-								<div class="bento-content">
-									<div class="bento-icon">💰</div>
-									<h3 class="bento-title">Evita Sanciones</h3>
-									<p class="bento-price">€150.000</p>
-									<p class="bento-description">
-										en multas evitadas
-									</p>
-								</div>
-							</div>
-
-							<!-- Tarjeta de configuración -->
-							<div class="bento-item bento-small">
+							<!-- Tarjeta de cambios Sage -->
+							<div class="bento-item bento-medium bento-order-2">
 								<div class="bento-content">
 									<div class="bento-icon">🔧</div>
-									<h3 class="bento-title">Setup Sage</h3>
+									<h3 class="bento-title">¿Qué cambios tengo que hacer en Sage200?</h3>
+									<p class="bento-description">
+										Configuraciones específicas y actualizaciones necesarias
+									</p>
 								</div>
 							</div>
 
-							<!-- Tarjeta de checklist -->
-							<div class="bento-item bento-small">
+							<!-- Tarjeta de opciones - medio izquierda -->
+							<div class="bento-item bento-small bento-order-4">
 								<div class="bento-content">
-									<div class="bento-icon">📋</div>
-									<h3 class="bento-title">Checklist</h3>
+									<div class="bento-icon">⚙️</div>
+									<h3 class="bento-title">¿Qué opciones tengo?</h3>
 								</div>
 							</div>
 
-							<!-- Tarjeta de migración -->
-							<div class="bento-item bento-wide">
+							<!-- Tarjeta de sistema 2026 - medio derecha (alargada) -->
+							<div class="bento-item bento-highlight bento-order-3">
 								<div class="bento-content">
-									<div class="bento-icon">🎯</div>
+									<div class="bento-icon">📅</div>
+									<h3 class="bento-title">¿Cómo funcionará el sistema en 2026?</h3>
+									<p class="bento-description">
+										Nuevos flujos de trabajo y cambios operativos
+									</p>
+								</div>
+							</div>
+
+							<!-- Tarjeta de costes -->
+							<div class="bento-item bento-small bento-order-5">
+								<div class="bento-content">
+									<div class="bento-icon">💰</div>
+									<h3 class="bento-title">¿Qué coste tendrá?</h3>
+								</div>
+							</div>
+
+							<!-- Tarjeta de inicio -->
+							<div class="bento-item bento-wide bento-order-6">
+								<div class="bento-content">
+									<div class="bento-icon">🚀</div>
 									<h3 class="bento-title">
-										Migración sin Interrupciones
+										¿Cuándo empiezo?
 									</h3>
 									<p class="bento-description">
-										Estrategias probadas para cambiar sin
-										afectar tu operación diaria
+										Cronograma de implementación y plan
+										de acción para una transición exitosa
 									</p>
 								</div>
 							</div>
@@ -1184,7 +1189,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 	.bento-grid {
 		display: grid;
 		grid-template-columns: repeat(12, 1fr);
-		grid-template-rows: repeat(4, minmax(120px, auto));
+		grid-template-rows: repeat(4, minmax(140px, auto));
 		gap: 1.5rem;
 		max-width: 1200px;
 		margin: 0 auto;
@@ -1228,14 +1233,14 @@ import IntegratorDark from "../assets/integratorDark.png";
 	}
 
 	.bento-medium {
-		grid-column: span 6;
+		grid-column: span 12;
 		grid-row: span 1;
 	}
 
 	.bento-highlight {
-		grid-column: span 4;
-		grid-row: span 2;
-		background: linear-gradient(135deg, #dc2626, #991b1b);
+		grid-column: span 8;
+		grid-row: span 1;
+		background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
 		color: white;
 	}
 
@@ -1247,6 +1252,31 @@ import IntegratorDark from "../assets/integratorDark.png";
 	.bento-wide {
 		grid-column: span 8;
 		grid-row: span 1;
+	}
+
+	.bento-image {
+		grid-column: span 6;
+		grid-row: span 2;
+		padding: 0;
+		overflow: hidden;
+	}
+
+	.bento-image-container {
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+
+	.bento-image-container img {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: center;
+		transition: transform 0.3s ease;
+	}
+
+	.bento-image:hover .bento-image-container img {
+		transform: scale(1.05);
 	}
 
 	/* Content Styles */
@@ -1307,6 +1337,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 	.bento-small .bento-title {
 		font-size: 1.25rem;
 		margin-bottom: 0;
+		line-height: 1.2;
 	}
 
 	/* Grid Layout Specific */
@@ -1666,6 +1697,35 @@ import IntegratorDark from "../assets/integratorDark.png";
 			grid-template-columns: 1fr;
 			gap: 2rem;
 		}
+
+		/* Bento Grid for tablet */
+		.bento-grid {
+			grid-template-columns: repeat(6, 1fr);
+			gap: 1.5rem;
+		}
+
+		.bento-large {
+			grid-column: span 6;
+			grid-row: span 1;
+		}
+
+		.bento-medium,
+		.bento-highlight,
+		.bento-wide {
+			grid-column: span 6;
+			grid-row: span 1;
+		}
+
+		.bento-small {
+			grid-column: span 3;
+			grid-row: span 1;
+		}
+
+		.bento-image {
+			grid-column: span 6;
+			grid-row: span 1;
+			min-height: 200px;
+		}
 	}
 
 	@media (max-width: 768px) {
@@ -1789,23 +1849,38 @@ import IntegratorDark from "../assets/integratorDark.png";
 
 		/* Bento Grid Responsive */
 		.bento-grid {
-			grid-template-columns: 1fr;
-			grid-template-rows: auto;
-			gap: 1rem;
+			display: flex;
+			flex-direction: column;
+			gap: 1.5rem;
 		}
 
 		.bento-large,
 		.bento-medium,
 		.bento-highlight,
 		.bento-small,
-		.bento-wide {
-			grid-column: span 1;
-			grid-row: span 1;
+		.bento-wide,
+		.bento-image {
+			grid-column: unset;
+			grid-row: unset;
 		}
 
 		.bento-item {
-			padding: 1.5rem;
+			padding: 2rem;
+			min-height: 120px;
 		}
+
+		.bento-image {
+			min-height: 250px;
+		}
+
+		/* Mobile order */
+		.bento-order-1 { order: 1; }
+		.bento-order-2 { order: 2; }
+		.bento-order-3 { order: 3; }
+		.bento-order-4 { order: 4; }
+		.bento-order-5 { order: 5; }
+		.bento-order-6 { order: 6; }
+		.bento-order-7 { order: 7; }
 
 		.bento-icon {
 			font-size: 2rem;
