@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import IntegratorDark from "../assets/integratorDark.png";
 import VeriFactuOriginal from "../assets/verifactuoriginal.png";
+import HeaderBackground from "../assets/fondo12.png";
 ---
 
 <Layout title="VeriFactu - Tandem Software">
@@ -27,7 +28,7 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 		</nav>
 
 		<!-- Hero Section with Form -->
-		<header class="hero">
+		<header class="hero" style={`background-image: url('${HeaderBackground.src}');`}>
 			<div class="hero-background">
 				<div class="hero-pattern"></div>
 			</div>
@@ -42,7 +43,6 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 							Prepárate para
 							<span class="verifactu-wrapper">
 								<img src={VeriFactuOriginal.src} alt="VeriFactu" class="verifactu-logo" />
-								<span class="copyright-symbol">®</span>
 							</span>
 						</h1>
 						<p class="hero-subtitle">
@@ -758,33 +758,20 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 		position: relative;
 		padding: 4rem 0 8rem;
 		overflow: hidden;
-		background: linear-gradient(
-			135deg,
-			var(--primary-900) 0%,
-			var(--primary-700) 50%,
-			var(--primary-600) 100%
-		);
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 	}
 
 	.hero-background {
 		position: absolute;
 		inset: 0;
-		opacity: 0.1;
+		background: linear-gradient(to top left, rgba(0, 0, 0, 0.4) 0%, transparent 50%);
 	}
 
 	.hero-pattern {
 		position: absolute;
 		inset: 0;
-		background-image: radial-gradient(
-				circle at 25% 25%,
-				white 2px,
-				transparent 2px
-			),
-			radial-gradient(circle at 75% 75%, white 2px, transparent 2px);
-		background-size: 50px 50px;
-		background-position:
-			0 0,
-			25px 25px;
 	}
 
 	.hero-content {
@@ -811,7 +798,8 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 		border-radius: 50px;
 		font-size: 0.875rem;
 		font-weight: 600;
-		margin-bottom: 2rem;
+		margin-bottom: 1rem;
+		margin-top: -1rem;
 		border: 1px solid rgba(255, 255, 255, 0.2);
 	}
 
@@ -837,19 +825,9 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 	}
 
 	.verifactu-logo {
-		height: clamp(2.5rem, 5vw, 6rem);
+		height: clamp(4rem, 8vw, 7rem);
 		width: auto;
 		display: block;
-	}
-
-	.copyright-symbol {
-		position: absolute;
-		top: 0.6rem;
-		right: -0.10rem;
-		font-size: clamp(1rem, 2vw, 1.2rem);
-		font-weight:100;
-		color: white;
-		opacity: 0.9;
 	}
 
 	.gradient-text {
@@ -954,6 +932,7 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 		border-radius: 1.5rem;
 		box-shadow: var(--shadow-2xl);
 		color: var(--gray-900);
+		margin-top: -0.5rem;
 	}
 
 	.hero-registration-form .form-header {
@@ -1860,6 +1839,21 @@ import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 
 		.hero-title {
 			font-size: 2.5rem;
+			justify-content: center;
+		}
+
+		.verifactu-wrapper {
+			display: flex;
+			justify-content: center;
+			width: 100%;
+		}
+
+		.verifactu-logo {
+			height: 5rem;
+		}
+
+		.hero-badge {
+			display: none;
 		}
 
 		.hero-subtitle {
