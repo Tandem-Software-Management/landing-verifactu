@@ -2,7 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import IntegratorDark from "../assets/integratorDark.png";
 import VeriFactuOriginal from "../assets/verifactuoriginal.png";
-import HeaderBackground from "../assets/fondo12.png";
+import HeaderBackground from "../assets/diseño15.png";
 ---
 
 <Layout title="VeriFactu - Tandem Software">
@@ -28,7 +28,10 @@ import HeaderBackground from "../assets/fondo12.png";
 		</nav>
 
 		<!-- Hero Section with Form -->
-		<header class="hero" style={`background-image: url('${HeaderBackground.src}');`}>
+		<header
+			class="hero"
+			style={`background-image: url('${HeaderBackground.src}');`}
+		>
 			<div class="hero-background">
 				<div class="hero-pattern"></div>
 			</div>
@@ -42,7 +45,11 @@ import HeaderBackground from "../assets/fondo12.png";
 						<h1 class="hero-title">
 							Prepárate para
 							<span class="verifactu-wrapper">
-								<img src={VeriFactuOriginal.src} alt="VeriFactu" class="verifactu-logo" />
+								<img
+									src={VeriFactuOriginal.src}
+									alt="VeriFactu"
+									class="verifactu-logo"
+								/>
 							</span>
 						</h1>
 						<p class="hero-subtitle">
@@ -145,7 +152,10 @@ import HeaderBackground from "../assets/fondo12.png";
 
 							<div class="form-grid">
 								<div class="form-group">
-									<label for="empresa">Empresa <span class="required">*</span></label>
+									<label for="empresa"
+										>Empresa <span class="required">*</span
+										></label
+									>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -175,7 +185,11 @@ import HeaderBackground from "../assets/fondo12.png";
 								</div>
 
 								<div class="form-group">
-									<label for="nombre">Nombre completo <span class="required">*</span></label>
+									<label for="nombre"
+										>Nombre completo <span class="required"
+											>*</span
+										></label
+									>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -201,7 +215,11 @@ import HeaderBackground from "../assets/fondo12.png";
 								</div>
 
 								<div class="form-group">
-									<label for="email">Email corporativo <span class="required">*</span></label>
+									<label for="email"
+										>Email corporativo <span
+											class="required">*</span
+										></label
+									>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -232,7 +250,10 @@ import HeaderBackground from "../assets/fondo12.png";
 								</div>
 
 								<div class="form-group">
-									<label for="telefono">Teléfono <span class="required">*</span></label>
+									<label for="telefono"
+										>Teléfono <span class="required">*</span
+										></label
+									>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -277,7 +298,38 @@ import HeaderBackground from "../assets/fondo12.png";
 							</button>
 
 							<p class="form-disclaimer">
-								Responsable: Identidad: TANDEM SOFTWARE MANAGEMENT SL - CIF: B42712455 Dir. postal: Avda. de la Torrecilla S/N, Edif. La Torre II, Oficina 107 - 14013, de Córdoba. Teléfono: 957248361 Email: <a href="mailto:info@tandemsoftware.es">info@tandemsoftware.es</a>. En nombre de la empresa tratamos la información que nos facilita con el fin de prestarles el servicio solicitado y realizar la facturación del mismo. Los datos proporcionados se conservarán mientras se mantenga la relación comercial o durante los años necesarios para cumplir con las obligaciones legales. Los datos no se cederán a terceros salvo en los casos en que exista una obligación legal. Usted tiene derecho a obtener confirmación sobre si en nuestra empresa estamos tratando sus datos personales por tanto tiene derecho a acceder a sus datos personales, rectificar los datos inexactos o solicitar su supresión cuando los datos ya no sean necesarios. Si desea más información sobre sus derechos o saber cómo utilizamos sus datos, puede ponerse en contacto con nosotros enviándonos un correo electrónico a <a href="mailto:info@tandemsoftware.es">info@tandemsoftware.es</a>. Puede consultar información adicional sobre nuestra Política de Privacidad <a href="https://www.tandemsoftware.es/politica-de-privacidad/">aquí</a>. <br />
+								Responsable: Identidad: TANDEM SOFTWARE
+								MANAGEMENT SL - CIF: B42712455 Dir. postal:
+								Avda. de la Torrecilla S/N, Edif. La Torre II,
+								Oficina 107 - 14013, de Córdoba. Teléfono:
+								957248361 Email: <a
+									href="mailto:info@tandemsoftware.es"
+									>info@tandemsoftware.es</a
+								>. En nombre de la empresa tratamos la
+								información que nos facilita con el fin de
+								prestarles el servicio solicitado y realizar la
+								facturación del mismo. Los datos proporcionados
+								se conservarán mientras se mantenga la relación
+								comercial o durante los años necesarios para
+								cumplir con las obligaciones legales. Los datos
+								no se cederán a terceros salvo en los casos en
+								que exista una obligación legal. Usted tiene
+								derecho a obtener confirmación sobre si en
+								nuestra empresa estamos tratando sus datos
+								personales por tanto tiene derecho a acceder a
+								sus datos personales, rectificar los datos
+								inexactos o solicitar su supresión cuando los
+								datos ya no sean necesarios. Si desea más
+								información sobre sus derechos o saber cómo
+								utilizamos sus datos, puede ponerse en contacto
+								con nosotros enviándonos un correo electrónico a <a
+									href="mailto:info@tandemsoftware.es"
+									>info@tandemsoftware.es</a
+								>. Puede consultar información adicional sobre
+								nuestra Política de Privacidad <a
+									href="https://www.tandemsoftware.es/politica-de-privacidad/"
+									>aquí</a
+								>. <br />
 							</p>
 						</form>
 
@@ -444,15 +496,18 @@ import HeaderBackground from "../assets/fondo12.png";
 							<div class="bento-item bento-large bento-order-1">
 								<div class="bento-content">
 									<div class="bento-icon-img">
-										<img src="/question.svg" alt="Información" />
+										<img
+											src="/question.svg"
+											alt="Información"
+										/>
 									</div>
 									<h3 class="bento-title">
 										¿Qué es VeriFactu?
 									</h3>
 									<p class="bento-description">
 										Comprende en detalle la nueva normativa,
-										sus requisitos técnicos y su impacto
-										en tu empresa.
+										sus requisitos técnicos y su impacto en
+										tu empresa.
 									</p>
 								</div>
 							</div>
@@ -460,7 +515,10 @@ import HeaderBackground from "../assets/fondo12.png";
 							<!-- Tarjeta con imagen - arriba derecha -->
 							<div class="bento-item bento-image bento-order-7">
 								<div class="bento-image-container">
-									<img src="/joven.jpg" alt="Profesional trabajando con VeriFactu" />
+									<img
+										src="/joven.jpg"
+										alt="Profesional trabajando con VeriFactu"
+									/>
 								</div>
 							</div>
 
@@ -468,11 +526,17 @@ import HeaderBackground from "../assets/fondo12.png";
 							<div class="bento-item bento-medium bento-order-2">
 								<div class="bento-content">
 									<div class="bento-icon-img">
-										<img src="/bolt-svgrepo-com.svg" alt="Configuración" />
+										<img
+											src="/bolt-svgrepo-com.svg"
+											alt="Configuración"
+										/>
 									</div>
-									<h3 class="bento-title">¿Qué cambios tengo que hacer en Sage200?</h3>
+									<h3 class="bento-title">
+										¿Qué cambios tengo que hacer en Sage200?
+									</h3>
 									<p class="bento-description">
-										Configuraciones específicas y actualizaciones necesarias
+										Configuraciones específicas y
+										actualizaciones necesarias
 									</p>
 								</div>
 							</div>
@@ -481,11 +545,17 @@ import HeaderBackground from "../assets/fondo12.png";
 							<div class="bento-item bento-small bento-order-4">
 								<div class="bento-content">
 									<div class="bento-icon-img">
-										<img src="/checklist.svg" alt="Opciones" />
+										<img
+											src="/checklist.svg"
+											alt="Opciones"
+										/>
 									</div>
-									<h3 class="bento-title">¿Qué opciones tengo?</h3>
+									<h3 class="bento-title">
+										¿Qué opciones tengo?
+									</h3>
 									<p class="bento-description">
-										Alternativas de implementación disponibles
+										Alternativas de implementación
+										disponibles
 									</p>
 								</div>
 							</div>
@@ -496,7 +566,9 @@ import HeaderBackground from "../assets/fondo12.png";
 									<div class="bento-icon-img">
 										<img src="/rocket.svg" alt="Inicio" />
 									</div>
-									<h3 class="bento-title">¿Cuándo empiezo?</h3>
+									<h3 class="bento-title">
+										¿Cuándo empiezo?
+									</h3>
 									<p class="bento-description">
 										Plan de acción para transición exitosa
 									</p>
@@ -504,14 +576,22 @@ import HeaderBackground from "../assets/fondo12.png";
 							</div>
 
 							<!-- Tarjeta de sistema 2026 (alargada) -->
-							<div class="bento-item bento-highlight bento-order-3">
+							<div
+								class="bento-item bento-highlight bento-order-3"
+							>
 								<div class="bento-content">
 									<div class="bento-icon-img">
-										<img src="/clock.svg" alt="Calendario 2026" />
+										<img
+											src="/clock.svg"
+											alt="Calendario 2026"
+										/>
 									</div>
-									<h3 class="bento-title">¿Cómo funcionará el sistema en 2026?</h3>
+									<h3 class="bento-title">
+										¿Cómo funcionará el sistema en 2026?
+									</h3>
 									<p class="bento-description">
-										Nuevos flujos de trabajo y cambios operativos que afectarán tu día a día
+										Nuevos flujos de trabajo y cambios
+										operativos que afectarán tu día a día
 									</p>
 								</div>
 							</div>
@@ -520,9 +600,14 @@ import HeaderBackground from "../assets/fondo12.png";
 							<div class="bento-item bento-small bento-order-5">
 								<div class="bento-content">
 									<div class="bento-icon-img">
-										<img src="/hand-money-svgrepo-com.svg" alt="Costes" />
+										<img
+											src="/hand-money-svgrepo-com.svg"
+											alt="Costes"
+										/>
 									</div>
-									<h3 class="bento-title">¿Qué coste tendrá?</h3>
+									<h3 class="bento-title">
+										¿Qué coste tendrá?
+									</h3>
 									<p class="bento-description">
 										Desglose de costos de implementación
 									</p>
@@ -766,7 +851,11 @@ import HeaderBackground from "../assets/fondo12.png";
 	.hero-background {
 		position: absolute;
 		inset: 0;
-		background: linear-gradient(to top left, rgba(0, 0, 0, 0.4) 0%, transparent 50%);
+		background: linear-gradient(
+			to top left,
+			rgba(0, 0, 0, 0.4) 0%,
+			transparent 50%
+		);
 	}
 
 	.hero-pattern {
@@ -1274,7 +1363,11 @@ import HeaderBackground from "../assets/fondo12.png";
 	.bento-highlight {
 		grid-column: span 8;
 		grid-row: span 1;
-		background: linear-gradient(135deg, var(--primary-600), var(--primary-500));
+		background: linear-gradient(
+			135deg,
+			var(--primary-600),
+			var(--primary-500)
+		);
 		color: white;
 	}
 
@@ -1988,13 +2081,27 @@ import HeaderBackground from "../assets/fondo12.png";
 		}
 
 		/* Mobile order */
-		.bento-order-1 { order: 1; }
-		.bento-order-2 { order: 2; }
-		.bento-order-3 { order: 3; }
-		.bento-order-4 { order: 4; }
-		.bento-order-5 { order: 5; }
-		.bento-order-6 { order: 6; }
-		.bento-order-7 { order: 7; }
+		.bento-order-1 {
+			order: 1;
+		}
+		.bento-order-2 {
+			order: 2;
+		}
+		.bento-order-3 {
+			order: 3;
+		}
+		.bento-order-4 {
+			order: 4;
+		}
+		.bento-order-5 {
+			order: 5;
+		}
+		.bento-order-6 {
+			order: 6;
+		}
+		.bento-order-7 {
+			order: 7;
+		}
 
 		.bento-icon {
 			font-size: 2rem;
