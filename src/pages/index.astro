@@ -142,7 +142,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 
 							<div class="form-grid">
 								<div class="form-group">
-									<label for="empresa">Empresa</label>
+									<label for="empresa">Empresa <span class="required">*</span></label>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -172,7 +172,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 								</div>
 
 								<div class="form-group">
-									<label for="nombre">Nombre completo</label>
+									<label for="nombre">Nombre completo <span class="required">*</span></label>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -198,7 +198,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 								</div>
 
 								<div class="form-group">
-									<label for="email">Email corporativo</label>
+									<label for="email">Email corporativo <span class="required">*</span></label>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -229,7 +229,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 								</div>
 
 								<div class="form-group">
-									<label for="telefono">Teléfono</label>
+									<label for="telefono">Teléfono <span class="required">*</span></label>
 									<div class="input-wrapper">
 										<svg
 											class="input-icon"
@@ -274,10 +274,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 							</button>
 
 							<p class="form-disclaimer">
-								Una vez hayas completado el formulario,
-								contactaremos contigo en las próximas 24-48
-								horas para confirmar tu inscripción y enviarte
-								el enlace al evento. <br />
+								Responsable: Identidad: TANDEM SOFTWARE MANAGEMENT SL - CIF: B42712455 Dir. postal: Avda. de la Torrecilla S/N, Edif. La Torre II, Oficina 107 - 14013, de Córdoba. Teléfono: 957248361 Email: <a href="mailto:info@tandemsoftware.es">info@tandemsoftware.es</a>. En nombre de la empresa tratamos la información que nos facilita con el fin de prestarles el servicio solicitado y realizar la facturación del mismo. Los datos proporcionados se conservarán mientras se mantenga la relación comercial o durante los años necesarios para cumplir con las obligaciones legales. Los datos no se cederán a terceros salvo en los casos en que exista una obligación legal. Usted tiene derecho a obtener confirmación sobre si en nuestra empresa estamos tratando sus datos personales por tanto tiene derecho a acceder a sus datos personales, rectificar los datos inexactos o solicitar su supresión cuando los datos ya no sean necesarios. Si desea más información sobre sus derechos o saber cómo utilizamos sus datos, puede ponerse en contacto con nosotros enviándonos un correo electrónico a <a href="mailto:info@tandemsoftware.es">info@tandemsoftware.es</a>. Puede consultar información adicional sobre nuestra Política de Privacidad <a href="https://www.tandemsoftware.es/politica-de-privacidad/">aquí</a>. <br />
 							</p>
 						</form>
 
@@ -1558,6 +1555,10 @@ import IntegratorDark from "../assets/integratorDark.png";
 		letter-spacing: 0.05em;
 	}
 
+	.form-group label .required {
+		color: #dc2626;
+	}
+
 	.input-wrapper {
 		position: relative;
 	}
@@ -1626,10 +1627,22 @@ import IntegratorDark from "../assets/integratorDark.png";
 	}
 
 	.form-disclaimer {
-		font-size: 0.875rem;
+		font-size: 0.46rem;
 		color: var(--gray-500);
 		text-align: center;
-		line-height: 1.5;
+		line-height: 1.4;
+	}
+
+	.form-disclaimer a {
+		color: var(--gray-600);
+		text-decoration: underline;
+		text-decoration-thickness: 0.5px;
+		text-underline-offset: 2px;
+		transition: color 0.2s ease;
+	}
+
+	.form-disclaimer a:hover {
+		color: var(--primary-600);
 	}
 
 	/* Thank You Message */
