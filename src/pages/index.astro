@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import IntegratorDark from "../assets/integratorDark.png";
+import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 ---
 
 <Layout title="VeriFactu - Tandem Software">
@@ -38,9 +39,11 @@ import IntegratorDark from "../assets/integratorDark.png";
 							<span>Evento Exclusivo</span>
 						</div>
 						<h1 class="hero-title">
-							Prepárate para <span class="gradient-text"
-								>VeriFactu</span
-							>
+							Prepárate para
+							<span class="verifactu-wrapper">
+								<img src={VeriFactuOriginal.src} alt="VeriFactu" class="verifactu-logo" />
+								<span class="copyright-symbol">®</span>
+							</span>
 						</h1>
 						<p class="hero-subtitle">
 							El futuro de la verificación de facturas con Sage ya
@@ -535,7 +538,7 @@ import IntegratorDark from "../assets/integratorDark.png";
 				<div class="container">
 					<div class="stats-grid-main">
 						<div class="stat-item-main">
-							<div class="stat-number">100+</div>
+							<div class="stat-number">250+</div>
 							<div class="stat-label">Empresas integradas</div>
 						</div>
 						<div class="stat-item-main">
@@ -822,6 +825,31 @@ import IntegratorDark from "../assets/integratorDark.png";
 		line-height: 1.1;
 		margin-bottom: 1.5rem;
 		letter-spacing: -0.02em;
+		display: flex;
+		align-items: center;
+		gap: 0.1rem;
+		flex-wrap: wrap;
+	}
+
+	.verifactu-wrapper {
+		position: relative;
+		display: inline-block;
+	}
+
+	.verifactu-logo {
+		height: clamp(2.5rem, 5vw, 6rem);
+		width: auto;
+		display: block;
+	}
+
+	.copyright-symbol {
+		position: absolute;
+		top: 0.6rem;
+		right: -0.10rem;
+		font-size: clamp(1rem, 2vw, 1.2rem);
+		font-weight:100;
+		color: white;
+		opacity: 0.9;
 	}
 
 	.gradient-text {
