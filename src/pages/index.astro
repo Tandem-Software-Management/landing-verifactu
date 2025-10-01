@@ -828,6 +828,19 @@ import HeaderBackground from "../assets/fondo12.png";
 		height: clamp(4rem, 8vw, 7rem);
 		width: auto;
 		display: block;
+		animation: logoFloat 1s ease-in-out;
+	}
+
+	@keyframes logoFloat {
+		0% {
+			transform: translateY(0) rotate(0deg);
+		}
+		30% {
+			transform: translateY(-10px) rotate(-5deg);
+		}
+		100% {
+			transform: translateY(0) rotate(0deg);
+		}
 	}
 
 	.gradient-text {
