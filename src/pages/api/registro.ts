@@ -85,8 +85,13 @@ export const POST: APIRoute = async ({ request }) => {
         throw new Error("SMTP falló y no hay configurada RESEND_API_KEY");
       }
 
-      await sendEmailWithResend(empresa, nombre, email, telefono);
-      console.log("Email enviado exitosamente con Resend");
+      try {
+        await sendEmailWithResend(empresa, nombre, email, telefono);
+        console.log("Email enviado exitosamente con Resend");
+      } catch (resendError) {
+        console.error("Resend también falló:", resendError);
+        throw resendError;
+      }
     }
 
     return new Response(
