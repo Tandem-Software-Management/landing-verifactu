@@ -11,7 +11,7 @@ const SMTP_PASSWORD = import.meta.env.SMTP_PASSWORD;
 const EMAIL_TO = import.meta.env.EMAIL_TO;
 const DATABASE_URL = import.meta.env.DATABASE_URL;
 
-// Crear conexión a la base de datos
+// Crear conexión a la base de datoss
 async function getDbConnection() {
   if (!DATABASE_URL) {
     throw new Error("DATABASE_URL no está configurada");
