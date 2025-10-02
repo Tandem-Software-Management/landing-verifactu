@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import nodemailer from "nodemailer";
+// import nodemailer from "nodemailer";
 import { Resend } from "resend";
 import mysql from "mysql2/promise";
 
@@ -7,7 +7,7 @@ export const prerender = false;
 
 // Cargar variables de entorno usando import.meta.env (forma correcta en Astro)
 const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
-const SMTP_PASSWORD = import.meta.env.SMTP_PASSWORD;
+// const SMTP_PASSWORD = import.meta.env.SMTP_PASSWORD;
 const EMAIL_TO = import.meta.env.EMAIL_TO;
 const DATABASE_URL = import.meta.env.DATABASE_URL;
 
@@ -19,45 +19,45 @@ async function getDbConnection() {
   return await mysql.createConnection(DATABASE_URL);
 }
 
-async function sendEmailWithSMTP(
-  empresa: string,
-  nombre: string,
-  email: string,
-  telefono: string
-) {
-  const transporter = nodemailer.createTransport({
-    host: "cruzber.loadi3ng.es",
-    port: 465,
-    secure: true,
-    requireTLS: true,
-    auth: {
-      user: "no-reply@tandemsoftware.info",
-      pass: SMTP_PASSWORD,
-    },
-    tls: {
-      rejectUnauthorized: false,
-    },
-  });
+// async function sendEmailWithSMTP(
+//   empresa: string,
+//   nombre: string,
+//   email: string,
+//   telefono: string
+// ) {
+//   const transporter = nodemailer.createTransport({
+//     host: "cruzber.loading.es",
+//     port: 465,
+//     secure: true,
+//     requireTLS: true,
+//     auth: {
+//       user: "no-reply@tandemsoftware.info",
+//       pass: SMTP_PASSWORD,
+//     },
+//     tls: {
+//       rejectUnauthorized: false,
+//     },
+//   });
 
-  await transporter.sendMail({
-    from: '"Tandem Software" <no-reply@tandemsoftware.info>',
-    to: EMAIL_TO || "info@tandemsoftware.es",
-    subject: "Nueva inscripción desde la web",
-    text: `
-      Empresa: ${empresa}
-      Nombre: ${nombre}
-      Email: ${email}
-      Teléfono: ${telefono}
-    `,
-    html: `
-      <h3>Nueva inscripción recibida</h3>
-      <p><strong>Empresa:</strong> ${empresa}</p>
-      <p><strong>Nombre:</strong> ${nombre}</p>
-      <p><strong>Email:</strong> ${email}</p>
-      <p><strong>Teléfono:</strong> ${telefono}</p>
-    `,
-  });
-}
+//   await transporter.sendMail({
+//     from: '"Tandem Software" <no-reply@tandemsoftware.info>',
+//     to: EMAIL_TO || "info@tandemsoftware.es",
+//     subject: "Nueva inscripción desde la web",
+//     text: `
+//       Empresa: ${empresa}
+//       Nombre: ${nombre}
+//       Email: ${email}
+//       Teléfono: ${telefono}
+//     `,
+//     html: `
+//       <h3>Nueva inscripción recibida</h3>
+//       <p><strong>Empresa:</strong> ${empresa}</p>
+//       <p><strong>Nombre:</strong> ${nombre}</p>
+//       <p><strong>Email:</strong> ${email}</p>
+//       <p><strong>Teléfono:</strong> ${telefono}</p>
+//     `,
+//   });
+// }
 
 async function sendEmailWithResend(
   empresa: string,
@@ -130,14 +130,14 @@ export const POST: APIRoute = async ({ request }) => {
       console.log("✗ Resend falló:", resendError.message);
       console.log("Intentando con SMTP...");
 
-      try {
-        await sendEmailWithSMTP(empresa, nombre, email, telefono);
-        emailSent = true;
-        console.log("✓ Email enviado exitosamente con SMTP");
-      } catch (smtpError: any) {
-        console.error("✗ SMTP también falló:", smtpError.message);
-        throw smtpError;
-      }
+      // try {
+      //   await sendEmailWithSMTP(empresa, nombre, email, telefono);
+      //   emailSent = true;
+      //   console.log("✓ Email enviado exitosamente con SMTP");
+      // } catch (smtpError: any) {
+      //   console.error("✗ SMTP también falló:", smtpError.message);
+      //   throw smtpError;
+      // }
     }
 
     return new Response(
