@@ -40,7 +40,7 @@ async function sendEmailWithSMTP(
   });
 
   await transporter.sendMail({
-    from: '"TandemSoftware" <no-reply@tandemsoftware.info>',
+    from: '"TandemSoftware" <onboarding@resend.dev>',
     to: EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     text: `
