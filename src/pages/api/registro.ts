@@ -26,12 +26,13 @@ async function sendEmailWithSMTP(
   telefono: string
 ) {
   const transporter = nodemailer.createTransport({
-    host: "cruzber.loading.es",
-    port: 465,
-    secure: true,
+    host: "mail.tandemsoftware.info",
+    port: 25,
+    secure: false,
+    requireTLS: false,
     auth: {
-      user: "alertas@tandemsoftware.info",
-      pass: process.env.SMTP_PASSWORD,
+      user: "no-reply@tandemsoftware.info",
+      pass: "9j9q#qH26",
     },
     tls: {
       rejectUnauthorized: false,
@@ -39,8 +40,8 @@ async function sendEmailWithSMTP(
   });
 
   await transporter.sendMail({
-    from: '"TandemSoftware" <alertas@tandemsoftware.info>',
-    to: EMAIL_TO || "info@tandemsoftware.es",
+    from: '"TandemSoftware" <no-reply@tandemsoftware.info>',
+    to: EMAIL_TO || "no-reply@tandemsoftware.info",
     subject: "Nueva inscripción desde la web",
     text: `
       Empresa: ${empresa}
@@ -71,7 +72,7 @@ async function sendEmailWithResend(
   const resend = new Resend(RESEND_API_KEY);
   const { data, error } = await resend.emails.send({
     from: "TandemSoftware <onboarding@resend.dev>",
-    to: EMAIL_TO || "info@tandemsoftware.es",
+    to: EMAIL_TO || "no-reply@tandemsoftware.info",
     subject: "Nueva inscripción desde la web",
     html: `
       <h3>Nueva inscripción recibida</h3>
@@ -143,13 +144,13 @@ export const POST: APIRoute = async ({ request }) => {
       JSON.stringify({
         message: "Inscripción enviada correctamente",
         dbSaved,
-        emailSent
+        emailSent,
       }),
       {
         status: 200,
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       }
     );
   } catch (error: any) {
@@ -164,8 +165,8 @@ export const POST: APIRoute = async ({ request }) => {
       {
         status: 500,
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       }
     );
   }
