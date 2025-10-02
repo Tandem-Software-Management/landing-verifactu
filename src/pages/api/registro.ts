@@ -41,7 +41,7 @@ async function sendEmailWithSMTP(
 
   await transporter.sendMail({
     from: '"TandemSoftware" <no-reply@tandemsoftware.info>',
-    to: EMAIL_TO || "no-reply@tandemsoftware.info",
+    to: EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     text: `
       Empresa: ${empresa}
@@ -72,7 +72,7 @@ async function sendEmailWithResend(
   const resend = new Resend(RESEND_API_KEY);
   const { data, error } = await resend.emails.send({
     from: "TandemSoftware <onboarding@resend.dev>",
-    to: EMAIL_TO || "no-reply@tandemsoftware.info",
+    to: EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     html: `
       <h3>Nueva inscripción recibida</h3>
