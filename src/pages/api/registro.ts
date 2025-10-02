@@ -26,13 +26,13 @@ async function sendEmailWithSMTP(
   telefono: string
 ) {
   const transporter = nodemailer.createTransport({
-    host: "mail.tandemsoftware.info",
-    port: 25,
-    secure: false,
-    requireTLS: false,
+    host: "cruzber.loadi3ng.es",
+    port: 465,
+    secure: true,
+    requireTLS: true,
     auth: {
       user: "no-reply@tandemsoftware.info",
-      pass: "9j9q#qH26",
+      pass: SMTP_PASSWORD,
     },
     tls: {
       rejectUnauthorized: false,
@@ -40,7 +40,7 @@ async function sendEmailWithSMTP(
   });
 
   await transporter.sendMail({
-    from: '"TandemSoftware" <onboarding@resend.dev>',
+    from: '"Tandem Software" <no-reply@tandemsoftware.info>',
     to: EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     text: `
@@ -71,7 +71,7 @@ async function sendEmailWithResend(
 
   const resend = new Resend(RESEND_API_KEY);
   const { data, error } = await resend.emails.send({
-    from: "TandemSoftware <onboarding@resend.dev>",
+    from: "Tandem Software <no-reply@tandemsoftware.info>",
     to: EMAIL_TO || "info@tandemsoftware.es",
     subject: "Nueva inscripción desde la web",
     html: `
@@ -120,23 +120,23 @@ export const POST: APIRoute = async ({ request }) => {
       // Continuar con el envío de email aunque falle la BD
     }
 
-    // Intentar primero con SMTP, si falla usar Resend como backup
+    // Intentar primero con Resend, si falla usar SMTP como backup
     try {
-      console.log("Intentando enviar email con SMTP...");
-      await sendEmailWithSMTP(empresa, nombre, email, telefono);
+      console.log("Intentando enviar email con Resend...");
+      await sendEmailWithResend(empresa, nombre, email, telefono);
       emailSent = true;
-      console.log("✓ Email enviado exitosamente con SMTP");
-    } catch (smtpError: any) {
-      console.log("✗ SMTP falló:", smtpError.message);
-      console.log("Intentando con Resend...");
+      console.log("✓ Email enviado exitosamente con Resend");
+    } catch (resendError: any) {
+      console.log("✗ Resend falló:", resendError.message);
+      console.log("Intentando con SMTP...");
 
       try {
-        await sendEmailWithResend(empresa, nombre, email, telefono);
+        await sendEmailWithSMTP(empresa, nombre, email, telefono);
         emailSent = true;
-        console.log("✓ Email enviado exitosamente con Resend");
-      } catch (resendError: any) {
-        console.error("✗ Resend también falló:", resendError.message);
-        throw resendError;
+        console.log("✓ Email enviado exitosamente con SMTP");
+      } catch (smtpError: any) {
+        console.error("✗ SMTP también falló:", smtpError.message);
+        throw smtpError;
       }
     }
 
