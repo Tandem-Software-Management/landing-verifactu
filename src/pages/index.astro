@@ -8,7 +8,10 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
 <Layout title="VeriFactu - Tandem Software">
-	<script is:inline src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}></script>
+	<script
+		is:inline
+		src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}
+	></script>
 	<div class="page-wrapper">
 		<!-- Navigation Bar -->
 		<nav class="navbar">
@@ -292,9 +295,10 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 								</div>
 							</div>
 
-							<button type="submit" class="submit-button">
-								<span>Confirmar inscripción</span>
+							<button type="submit" class="submit-button" id="submitButton">
+								<span class="button-text">Confirmar inscripción</span>
 								<svg
+									class="button-arrow"
 									width="20"
 									height="20"
 									viewBox="0 0 20 20"
@@ -306,6 +310,10 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 										stroke-width="2"
 										stroke-linecap="round"
 										stroke-linejoin="round"></path>
+								</svg>
+								<svg class="button-spinner" width="20" height="20" viewBox="0 0 24 24" fill="none" style="display: none;">
+									<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="3" stroke-linecap="round" opacity="0.25"/>
+									<path d="M12 2a10 10 0 0 1 10 10" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
 								</svg>
 							</button>
 
@@ -716,7 +724,7 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 			),
 		email: z.email({
 			pattern: z.regexes.html5Email,
-			error: "Debe ser un email válido"
+			error: "Debe ser un email válido",
 		}),
 		telefono: z
 			.string()
@@ -731,8 +739,12 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 	document.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("registrationForm");
 		const thankYou = document.getElementById("thankYouMessage");
+		const submitButton = document.getElementById("submitButton");
+		const buttonText = submitButton.querySelector(".button-text");
+		const buttonArrow = submitButton.querySelector(".button-arrow");
+		const buttonSpinner = submitButton.querySelector(".button-spinner");
 
-		if (!form || !thankYou) {
+		if (!form || !thankYou || !submitButton) {
 			console.error("Required form elements not found");
 			return;
 		}
@@ -744,6 +756,21 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 			console.error("RECAPTCHA_SITE_KEY no encontrada");
 			return;
 		}
+
+		// Función para cambiar estado del botón a "cargando"
+		const setButtonLoading = (loading) => {
+			if (loading) {
+				submitButton.disabled = true;
+				buttonText.textContent = "Enviando...";
+				buttonArrow.style.display = "none";
+				buttonSpinner.style.display = "block";
+			} else {
+				submitButton.disabled = false;
+				buttonText.textContent = "Confirmar inscripción";
+				buttonArrow.style.display = "block";
+				buttonSpinner.style.display = "none";
+			}
+		};
 
 		// Función para mostrar errores
 		const showError = (field, message) => {
@@ -819,25 +846,28 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 			try {
 				const validatedData = registrationSchema.parse(data);
 
+				// Activar estado de carga
+				setButtonLoading(true);
+
 				// Verificar que grecaptcha esté disponible
 				if (!window.grecaptcha || !window.grecaptcha.execute) {
 					console.error("reCAPTCHA no está cargado");
-					alert("Error de verificación. Por favor, recarga la página.");
+					alert(
+						"Error de verificación. Por favor, recarga la página.",
+					);
+					setButtonLoading(false);
 					return;
 				}
 
 				// Obtener token de reCAPTCHA
 				try {
-					console.log("Ejecutando reCAPTCHA con site key:", RECAPTCHA_SITE_KEY);
 					const recaptchaToken = await window.grecaptcha.execute(
 						RECAPTCHA_SITE_KEY,
-						{ action: 'submit' }
+						{ action: "submit" },
 					);
 
-					console.log("Token obtenido:", recaptchaToken ? "✓" : "✗");
-
 					// Añadir token al formData
-					formData.append('recaptcha_token', recaptchaToken);
+					formData.append("recaptcha_token", recaptchaToken);
 
 					// Enviar datos validados
 					const response = await fetch("/api/registro", {
@@ -846,6 +876,7 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 					});
 
 					if (response.ok) {
+						// Mantener botón deshabilitado en éxito
 						form.style.display = "none";
 						thankYou.style.display = "block";
 					} else {
@@ -854,10 +885,14 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 							responseData.message ||
 								"Ocurrió un error al enviar el formulario.",
 						);
+						setButtonLoading(false);
 					}
 				} catch (recaptchaError) {
 					console.error("Error de reCAPTCHA:", recaptchaError);
-					alert("Error de verificación. Por favor, inténtalo de nuevo.");
+					alert(
+						"Error de verificación. Por favor, inténtalo de nuevo.",
+					);
+					setButtonLoading(false);
 				}
 			} catch (error) {
 				if (error instanceof z.ZodError) {
@@ -870,7 +905,7 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 					// Hacer scroll al primer error
 					const firstIssue = error.issues[0];
 					const firstErrorField = document.getElementById(
-						firstIssue.path[0]
+						firstIssue.path[0],
 					);
 					if (firstErrorField) {
 						firstErrorField.scrollIntoView({
@@ -882,6 +917,7 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 				} else {
 					alert("Error al enviar el formulario. Inténtalo de nuevo.");
 					console.error(error);
+					setButtonLoading(false);
 				}
 			}
 		});
@@ -1915,9 +1951,10 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 		justify-content: center;
 		gap: 0.75rem;
 		margin-bottom: 1rem;
+		position: relative;
 	}
 
-	.submit-button:hover {
+	.submit-button:hover:not(:disabled) {
 		transform: translateY(-2px);
 		box-shadow: var(--shadow-xl);
 		background: linear-gradient(
@@ -1925,6 +1962,25 @@ const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 			var(--primary-700),
 			var(--primary-800)
 		);
+	}
+
+	.submit-button:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	.button-spinner {
+		animation: spin 0.8s linear infinite;
+	}
+
+	@keyframes spin {
+		from {
+			transform: rotate(0deg);
+		}
+		to {
+			transform: rotate(360deg);
+		}
 	}
 
 	.form-disclaimer {
