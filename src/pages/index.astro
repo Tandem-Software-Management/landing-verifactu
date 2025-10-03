@@ -144,6 +144,7 @@ import HeaderBackground from "../assets/diseño15.png";
 							method="POST"
 							action="/api/registro"
 							enctype="application/x-www-form-urlencoded"
+							novalidate
 						>
 							<div class="form-header">
 								<h3>Inscripción gratuita</h3>
@@ -179,9 +180,11 @@ import HeaderBackground from "../assets/diseño15.png";
 											id="empresa"
 											name="empresa"
 											placeholder="Nombre de tu empresa"
-											required
 										/>
 									</div>
+									<span
+										class="error-message"
+										id="empresa-error"></span>
 								</div>
 
 								<div class="form-group">
@@ -209,9 +212,11 @@ import HeaderBackground from "../assets/diseño15.png";
 											id="nombre"
 											name="nombre"
 											placeholder="Tu nombre y apellidos"
-											required
 										/>
 									</div>
+									<span
+										class="error-message"
+										id="nombre-error"></span>
 								</div>
 
 								<div class="form-group">
@@ -244,9 +249,10 @@ import HeaderBackground from "../assets/diseño15.png";
 											id="email"
 											name="email"
 											placeholder="tu@empresa.com"
-											required
 										/>
 									</div>
+									<span class="error-message" id="email-error"
+									></span>
 								</div>
 
 								<div class="form-group">
@@ -273,10 +279,12 @@ import HeaderBackground from "../assets/diseño15.png";
 											type="tel"
 											id="telefono"
 											name="telefono"
-											placeholder="+34 000 000 000"
-											required
+											placeholder="+34 600 000 000"
 										/>
 									</div>
+									<span
+										class="error-message"
+										id="telefono-error"></span>
 								</div>
 							</div>
 
@@ -681,6 +689,40 @@ import HeaderBackground from "../assets/diseño15.png";
 </Layout>
 
 <script>
+	import { z } from "zod";
+
+	// Schema de validación con Zod
+	const registrationSchema = z.object({
+		empresa: z
+			.string()
+			.min(2, "El nombre de la empresa debe tener al menos 2 caracteres")
+			.max(100, "El nombre de la empresa es demasiado largo")
+			.regex(
+				/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ0-9\s\-.,&]+$/,
+				"El nombre de la empresa contiene caracteres no válidos",
+			),
+		nombre: z
+			.string()
+			.min(3, "El nombre debe tener al menos 3 caracteres")
+			.max(100, "El nombre es demasiado largo")
+			.regex(
+				/^[a-zA-ZáéíóúÁÉÍÓÚñÑüÜ\s]+$/,
+				"El nombre solo puede contener letras y espacios",
+			),
+		email: z.email({
+			pattern: z.regexes.html5Email,
+			error: "Debe ser un email válido"
+		}),
+		telefono: z
+			.string()
+			.min(9, "El teléfono debe tener al menos 9 dígitos")
+			.max(15, "El teléfono es demasiado largo")
+			.regex(
+				/^[\d\s\+\-\(\)]+$/,
+				"El teléfono solo puede contener números, espacios y símbolos + - ( )",
+			),
+	});
+
 	document.addEventListener("DOMContentLoaded", () => {
 		const form = document.getElementById("registrationForm");
 		const thankYou = document.getElementById("thankYouMessage");
@@ -690,12 +732,84 @@ import HeaderBackground from "../assets/diseño15.png";
 			return;
 		}
 
+		// Función para mostrar errores
+		const showError = (field: string, message: string) => {
+			const errorElement = document.getElementById(`${field}-error`);
+			const inputElement = document.getElementById(field);
+
+			if (errorElement) {
+				errorElement.textContent = message;
+				errorElement.style.display = "block";
+			}
+
+			if (inputElement) {
+				inputElement.classList.add("input-error");
+			}
+		};
+
+		// Función para limpiar errores
+		const clearError = (field: string) => {
+			const errorElement = document.getElementById(`${field}-error`);
+			const inputElement = document.getElementById(field);
+
+			if (errorElement) {
+				errorElement.textContent = "";
+				errorElement.style.display = "none";
+			}
+
+			if (inputElement) {
+				inputElement.classList.remove("input-error");
+			}
+		};
+
+		// Función para limpiar todos los errores
+		const clearAllErrors = () => {
+			["empresa", "nombre", "email", "telefono"].forEach(clearError);
+		};
+
+		// Validación en tiempo real (al salir del campo)
+		["empresa", "nombre", "email", "telefono"].forEach((fieldName) => {
+			const input = document.getElementById(fieldName);
+			if (input) {
+				input.addEventListener("blur", () => {
+					const formData = new FormData(form as HTMLFormElement);
+					const data = Object.fromEntries(formData);
+
+					try {
+						// Validar solo el campo actual
+						const fieldSchema =
+							registrationSchema.shape[
+								fieldName as keyof typeof registrationSchema.shape
+							];
+						fieldSchema.parse(data[fieldName]);
+						clearError(fieldName);
+					} catch (error) {
+						if (error instanceof z.ZodError) {
+							showError(fieldName, error.issues[0].message);
+						}
+					}
+				});
+
+				// Limpiar error al empezar a escribir
+				input.addEventListener("input", () => {
+					clearError(fieldName);
+				});
+			}
+		});
+
+		// Validación al enviar el formulario
 		form.addEventListener("submit", async (e) => {
 			e.preventDefault();
+			clearAllErrors();
 
 			const formData = new FormData(form as HTMLFormElement);
+			const data = Object.fromEntries(formData);
 
+			// Validar con Zod
 			try {
+				const validatedData = registrationSchema.parse(data);
+
+				// Enviar datos validados
 				const response = await fetch("/api/registro", {
 					method: "POST",
 					body: formData,
@@ -705,15 +819,36 @@ import HeaderBackground from "../assets/diseño15.png";
 					form.style.display = "none";
 					thankYou.style.display = "block";
 				} else {
-					const data = await response.json();
+					const responseData = await response.json();
 					alert(
-						data.message ||
+						responseData.message ||
 							"Ocurrió un error al enviar el formulario.",
 					);
 				}
 			} catch (error) {
-				alert("Error al enviar el formulario. Inténtalo de nuevo.");
-				console.error(error);
+				if (error instanceof z.ZodError) {
+					// Mostrar todos los errores de validación
+					error.issues.forEach((err) => {
+						const fieldName = err.path[0] as string;
+						showError(fieldName, err.message);
+					});
+
+					// Hacer scroll al primer error
+					const firstIssue = error.issues[0];
+					const firstErrorField = document.getElementById(
+						firstIssue.path[0] as string,
+					);
+					if (firstErrorField) {
+						firstErrorField.scrollIntoView({
+							behavior: "smooth",
+							block: "center",
+						});
+						firstErrorField.focus();
+					}
+				} else {
+					alert("Error al enviar el formulario. Inténtalo de nuevo.");
+					console.error(error);
+				}
 			}
 		});
 	});
@@ -1705,6 +1840,25 @@ import HeaderBackground from "../assets/diseño15.png";
 
 	.input-wrapper input::placeholder {
 		color: var(--gray-400);
+	}
+
+	.input-wrapper input.input-error {
+		border-color: #dc2626;
+		background: #fef2f2;
+	}
+
+	.input-wrapper input.input-error:focus {
+		border-color: #dc2626;
+		box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+	}
+
+	.error-message {
+		display: none;
+		color: #dc2626;
+		font-size: 0.75rem;
+		font-weight: 500;
+		margin-top: 0.5rem;
+		margin-left: 0.25rem;
 	}
 
 	.submit-button {

@@ -15,7 +15,8 @@
     "mysql2": "^3.15.1",
     "nodemailer": "^7.0.6",
     "resend": "^6.1.0",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.13",
+    "zod": "^4.1.11"
   },
   "devDependencies": {
     "@types/nodemailer": "^7.0.1"
