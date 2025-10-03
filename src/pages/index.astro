@@ -3,9 +3,12 @@ import Layout from "../layouts/Layout.astro";
 import IntegratorDark from "../assets/integratorDark.png";
 import VeriFactuOriginal from "../assets/verifactuoriginal.png";
 import HeaderBackground from "../assets/diseño15.png";
+
+const RECAPTCHA_SITE_KEY = import.meta.env.PUBLIC_RECAPTCHA_SITE_KEY;
 ---
 
 <Layout title="VeriFactu - Tandem Software">
+	<script is:inline src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`}></script>
 	<div class="page-wrapper">
 		<!-- Navigation Bar -->
 		<nav class="navbar">
@@ -145,6 +148,7 @@ import HeaderBackground from "../assets/diseño15.png";
 							action="/api/registro"
 							enctype="application/x-www-form-urlencoded"
 							novalidate
+							data-recaptcha-key={RECAPTCHA_SITE_KEY}
 						>
 							<div class="form-header">
 								<h3>Inscripción gratuita</h3>
@@ -689,6 +693,7 @@ import HeaderBackground from "../assets/diseño15.png";
 </Layout>
 
 <script>
+	// @ts-nocheck
 	import { z } from "zod";
 
 	// Schema de validación con Zod
@@ -732,8 +737,16 @@ import HeaderBackground from "../assets/diseño15.png";
 			return;
 		}
 
+		// Obtener RECAPTCHA_SITE_KEY del data attribute
+		const RECAPTCHA_SITE_KEY = form.dataset.recaptchaKey;
+
+		if (!RECAPTCHA_SITE_KEY) {
+			console.error("RECAPTCHA_SITE_KEY no encontrada");
+			return;
+		}
+
 		// Función para mostrar errores
-		const showError = (field: string, message: string) => {
+		const showError = (field, message) => {
 			const errorElement = document.getElementById(`${field}-error`);
 			const inputElement = document.getElementById(field);
 
@@ -748,7 +761,7 @@ import HeaderBackground from "../assets/diseño15.png";
 		};
 
 		// Función para limpiar errores
-		const clearError = (field: string) => {
+		const clearError = (field) => {
 			const errorElement = document.getElementById(`${field}-error`);
 			const inputElement = document.getElementById(field);
 
@@ -772,15 +785,12 @@ import HeaderBackground from "../assets/diseño15.png";
 			const input = document.getElementById(fieldName);
 			if (input) {
 				input.addEventListener("blur", () => {
-					const formData = new FormData(form as HTMLFormElement);
+					const formData = new FormData(form);
 					const data = Object.fromEntries(formData);
 
 					try {
 						// Validar solo el campo actual
-						const fieldSchema =
-							registrationSchema.shape[
-								fieldName as keyof typeof registrationSchema.shape
-							];
+						const fieldSchema = registrationSchema.shape[fieldName];
 						fieldSchema.parse(data[fieldName]);
 						clearError(fieldName);
 					} catch (error) {
@@ -802,41 +812,65 @@ import HeaderBackground from "../assets/diseño15.png";
 			e.preventDefault();
 			clearAllErrors();
 
-			const formData = new FormData(form as HTMLFormElement);
+			const formData = new FormData(form);
 			const data = Object.fromEntries(formData);
 
 			// Validar con Zod
 			try {
 				const validatedData = registrationSchema.parse(data);
 
-				// Enviar datos validados
-				const response = await fetch("/api/registro", {
-					method: "POST",
-					body: formData,
-				});
+				// Verificar que grecaptcha esté disponible
+				if (!window.grecaptcha || !window.grecaptcha.execute) {
+					console.error("reCAPTCHA no está cargado");
+					alert("Error de verificación. Por favor, recarga la página.");
+					return;
+				}
 
-				if (response.ok) {
-					form.style.display = "none";
-					thankYou.style.display = "block";
-				} else {
-					const responseData = await response.json();
-					alert(
-						responseData.message ||
-							"Ocurrió un error al enviar el formulario.",
+				// Obtener token de reCAPTCHA
+				try {
+					console.log("Ejecutando reCAPTCHA con site key:", RECAPTCHA_SITE_KEY);
+					const recaptchaToken = await window.grecaptcha.execute(
+						RECAPTCHA_SITE_KEY,
+						{ action: 'submit' }
 					);
+
+					console.log("Token obtenido:", recaptchaToken ? "✓" : "✗");
+
+					// Añadir token al formData
+					formData.append('recaptcha_token', recaptchaToken);
+
+					// Enviar datos validados
+					const response = await fetch("/api/registro", {
+						method: "POST",
+						body: formData,
+					});
+
+					if (response.ok) {
+						form.style.display = "none";
+						thankYou.style.display = "block";
+					} else {
+						const responseData = await response.json();
+						alert(
+							responseData.message ||
+								"Ocurrió un error al enviar el formulario.",
+						);
+					}
+				} catch (recaptchaError) {
+					console.error("Error de reCAPTCHA:", recaptchaError);
+					alert("Error de verificación. Por favor, inténtalo de nuevo.");
 				}
 			} catch (error) {
 				if (error instanceof z.ZodError) {
 					// Mostrar todos los errores de validación
 					error.issues.forEach((err) => {
-						const fieldName = err.path[0] as string;
+						const fieldName = err.path[0];
 						showError(fieldName, err.message);
 					});
 
 					// Hacer scroll al primer error
 					const firstIssue = error.issues[0];
 					const firstErrorField = document.getElementById(
-						firstIssue.path[0] as string,
+						firstIssue.path[0]
 					);
 					if (firstErrorField) {
 						firstErrorField.scrollIntoView({

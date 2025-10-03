@@ -10,6 +10,34 @@ const RESEND_API_KEY = import.meta.env.RESEND_API_KEY;
 // const SMTP_PASSWORD = import.meta.env.SMTP_PASSWORD;
 const EMAIL_TO = import.meta.env.EMAIL_TO;
 const DATABASE_URL = import.meta.env.DATABASE_URL;
+const RECAPTCHA_SECRET_KEY = import.meta.env.RECAPTCHA_SECRET_KEY;
+
+// Verificar token de reCAPTCHA
+async function verifyRecaptcha(token: string): Promise<boolean> {
+  if (!RECAPTCHA_SECRET_KEY) {
+    throw new Error("RECAPTCHA_SECRET_KEY no está configurada");
+  }
+
+  try {
+    const response = await fetch("https://www.google.com/recaptcha/api/siteverify", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: `secret=${RECAPTCHA_SECRET_KEY}&response=${token}`,
+    });
+
+    const data = await response.json();
+
+    // reCAPTCHA v3 devuelve un score de 0.0 a 1.0
+    // 1.0 es muy probablemente humano, 0.0 es muy probablemente bot
+    // Recomendado: usar un threshold de 0.5
+    return data.success && data.score >= 0.5;
+  } catch (error) {
+    console.error("Error verificando reCAPTCHA:", error);
+    return false;
+  }
+}
 
 // Crear conexión a la base de datoss
 async function getDbConnection() {
@@ -193,8 +221,44 @@ export const POST: APIRoute = async ({ request }) => {
     const nombre = data.get("nombre") as string;
     const email = data.get("email") as string;
     const telefono = data.get("telefono") as string;
+    const recaptchaToken = data.get("recaptcha_token") as string;
 
     console.log("Datos recibidos:", { empresa, nombre, email, telefono });
+
+    // Verificar reCAPTCHA
+    if (!recaptchaToken) {
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Token de verificación no encontrado",
+        }),
+        {
+          status: 400,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    const isValidCaptcha = await verifyRecaptcha(recaptchaToken);
+    if (!isValidCaptcha) {
+      console.log("✗ Verificación de reCAPTCHA falló");
+      return new Response(
+        JSON.stringify({
+          success: false,
+          message: "Verificación de seguridad falló. Por favor, inténtalo de nuevo.",
+        }),
+        {
+          status: 403,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    }
+
+    console.log("✓ reCAPTCHA verificado exitosamente");
 
     // Guardar en la base de datos
     try {
