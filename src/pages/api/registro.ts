@@ -223,8 +223,6 @@ export const POST: APIRoute = async ({ request }) => {
     const telefono = data.get("telefono") as string;
     const recaptchaToken = data.get("recaptcha_token") as string;
 
-    console.log("Datos recibidos:", { empresa, nombre, email, telefono });
-
     // Verificar reCAPTCHA
     if (!recaptchaToken) {
       return new Response(
@@ -243,7 +241,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     const isValidCaptcha = await verifyRecaptcha(recaptchaToken);
     if (!isValidCaptcha) {
-      console.log("✗ Verificación de reCAPTCHA falló");
+      console.error("✗ Verificación de reCAPTCHA falló");
       return new Response(
         JSON.stringify({
           success: false,
@@ -258,11 +256,8 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    console.log("✓ reCAPTCHA verificado exitosamente");
-
     // Guardar en la base de datos
     try {
-      console.log("Intentando conectar a la base de datos...");
       const connection = await getDbConnection();
       await connection.execute(
         "INSERT INTO users (empresa, nombre, email, telefono) VALUES (?, ?, ?, ?)",
@@ -270,7 +265,6 @@ export const POST: APIRoute = async ({ request }) => {
       );
       await connection.end();
       dbSaved = true;
-      console.log("✓ Usuario guardado en la base de datos");
     } catch (dbError: any) {
       console.error("✗ Error al guardar en la base de datos:", dbError.message);
       // Continuar con el envío de email aunque falle la BD
@@ -278,22 +272,18 @@ export const POST: APIRoute = async ({ request }) => {
 
     // Enviar email de notificación a la empresa
     try {
-      console.log("Intentando enviar email de notificación a la empresa...");
       await sendEmailWithResend(empresa, nombre, email, telefono);
       emailSent = true;
-      console.log("✓ Email de notificación enviado a la empresa");
     } catch (resendError: any) {
-      console.log("✗ Error al enviar email de notificación:", resendError.message);
+      console.error("✗ Error al enviar email de notificación:", resendError.message);
     }
 
     // Enviar email de confirmación al usuario
     try {
-      console.log("Intentando enviar email de confirmación al usuario...");
       await sendConfirmationEmailToUser(nombre, email);
       confirmationEmailSent = true;
-      console.log("✓ Email de confirmación enviado al usuario");
     } catch (confirmationError: any) {
-      console.log("✗ Error al enviar email de confirmación:", confirmationError.message);
+      console.error("✗ Error al enviar email de confirmación:", confirmationError.message);
     }
 
     return new Response(
